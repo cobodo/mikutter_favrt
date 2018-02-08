@@ -5,11 +5,8 @@ require 'gtk2'
 
 class ::Gdk::MiraclePainter
   def iob_etc_clicked
-    if !message.favorite? then
-      message.favorite(true)
-    end 
-    if !message.retweet? || !message.retweeted_statuses.find(&:from_me?) then
-      message.retweet
-    end
+    world, = Plugin.filtering(:world_current, nil)
+    Plugin[:spell].favorite(world, message)
+    Plugin[:spell].share(world, message)
   end
 end
